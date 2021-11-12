@@ -7,8 +7,8 @@ import os
 
 # login credentials
 
-insta_username = os.environ('USERNAME')
-insta_password = os.environ('PASSWORD')
+insta_username = os.environ.get('USERNAME')
+insta_password = os.environ.get('PASSWORD')
 
 # constants
 
