@@ -8,12 +8,12 @@ import json
 
 # login credentials
 
-with open(os.path.join('/home/ubuntu/instabot/secrets.json')) as secrets_file:
+with open(os.path.join('./secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)
 
 insta_username = secrets['USERNAME']
 insta_password = secrets['PASSWORD']
-
+print(insta_username, insta_password)
 # constants
 
 comment_list = [
