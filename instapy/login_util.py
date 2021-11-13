@@ -248,6 +248,7 @@ def login_user(
 
     # try to load cookie from username
     try:
+        accept_igcookie_dialogue(browser, logger)
         for cookie in pickle.load(open(cookie_file, "rb")):
             # SameSite = Strict, your cookie will only be sent in a
             # first-party context. In user terms, the cookie will only be sent
