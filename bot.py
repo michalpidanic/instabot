@@ -3,19 +3,16 @@
 from instapy import InstaPy
 from instapy import smart_run
 import random
-from pathlib import Path
 import os
 import json
 
 # login credentials
-BASE_DIR = Path(__file__).resolve(strict=True).parent
-with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+
+with open(os.path.join('/home/ubuntu/instabot/secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)
 
 insta_username = secrets['USERNAME']
 insta_password = secrets['PASSWORD']
-
-print(insta_username, insta_password)
 
 # constants
 
@@ -26,7 +23,7 @@ comment_list = [
     u'Zásadne odmietame predložený návrh novely vysokoškolského zákona, pretože obmedzuje akademické slobody a dáva nebezpečné právomoci politickým nominantom, ktorí by tak mohli úplne ovládnuť vysoké školy ⚠️',
     u'Nechceme návrat do obdobia spred roku 1989. 👨🏻‍🎓📚👩🏽‍🎓'
     ]
-smart_hashtag_list = [
+hashtag_list = [
     'refreshersk',
     'school',
     'zomri',
@@ -153,10 +150,10 @@ with smart_run(session):
     session.set_simulation(enabled=False)
     session.set_mandatory_language(enabled=True, character_set=['LATIN'
                                    ])
-    session.set_smart_hashtags(smart_hashtag_list, limit=3, sort='top',
-                               log_tags=True)
-    session.set_smart_location_hashtags(location_list, radius=60,
-            limit=5)
+    # session.set_smart_hashtags(smart_hashtag_list, limit=3, sort='top',
+    #                            log_tags=True)
+    # session.set_smart_location_hashtags(location_list, radius=60,
+    #         limit=5)
     session.set_do_like(enabled=True, percentage=90)
     session.set_dont_like(restricted_hashtag_list)
     session.set_delimit_commenting(enabled=True, max_comments=6000,
@@ -168,7 +165,7 @@ with smart_run(session):
 
     # like
 
-    session.like_by_tags(amount=10, use_smart_hashtags=True)
+    session.like_by_tags(hashtag_list, amount=10)
     session.like_by_locations(location_list, amount=40)
 
     # comment
