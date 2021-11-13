@@ -25,4 +25,5 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   && sed -i "s#browser = webdriver.Firefox(#browser = webdriver.Firefox(service_log_path=os.devnull,#g" /usr/local/lib/python3.7/site-packages/instapy/browser.py \
   # Fix webdriverdownloader not handling asc files
   && sed -i "s#bitness in name]#bitness in name and name[-3:] != 'asc' ]#g" /usr/local/lib/python3.7/site-packages/webdriverdownloader/webdriverdownloader.py
+COPY bot.py .
 CMD [ "python", "bot.py" ]
