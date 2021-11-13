@@ -25,9 +25,9 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   && sed -i "s#browser = webdriver.Firefox(#browser = webdriver.Firefox(service_log_path=os.devnull,#g" /usr/local/lib/python3.7/site-packages/instapy/browser.py \
   # Fix webdriverdownloader not handling asc files
   && sed -i "s#bitness in name]#bitness in name and name[-3:] != 'asc' ]#g" /usr/local/lib/python3.7/site-packages/webdriverdownloader/webdriverdownloader.py
-RUN apt install firefox-geckodriver \
-  wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-arm7hf.tar.gz \
-  tar -xvzf geckodriver-v* \
-  chmod +x geckodriver \
-  cp geckodriver /usr/local/bin/ 
+RUN apt-get install firefox-geckodriver \
+  && wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-arm7hf.tar.gz \
+  && tar -xf geckodriver-v* \
+  && chmod +x geckodriver \
+  && cp geckodriver /usr/local/bin/ 
 CMD [ "python", "bot.py" ]
