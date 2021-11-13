@@ -3,12 +3,19 @@
 from instapy import InstaPy
 from instapy import smart_run
 import random
+from pathlib import Path
 import os
+import json
 
 # login credentials
+BASE_DIR = Path(__file__).resolve(strict=True).parent
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
 
-insta_username = os.environ.get('USERNAME')
-insta_password = os.environ.get('PASSWORD')
+insta_username = secrets['USERNAME']
+insta_password = secrets['PASSWORD']
+
+print(insta_username, insta_password)
 
 # constants
 

@@ -203,4 +203,7 @@ pip-selfcheck.json
 # Support for Project snippet scope
 !.vscode/*.code-snippets
 
+# secrets
+secrets.json
+
 # End of https://www.toptal.com/developers/gitignore/api/python,macos,venv,visualstudiocode

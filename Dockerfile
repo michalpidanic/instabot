@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7-slim-buster
 WORKDIR /code
 COPY requirements.txt /code/
 RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian.org/debian buster main contrib non-free#g" /etc/apt/sources.list \
