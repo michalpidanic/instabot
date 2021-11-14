@@ -166,11 +166,11 @@ with smart_run(session):
         )
     session.set_action_delays(
         enabled=True,
-        like=10,
-        comment=20,
-        follow=20,
-        unfollow=30,
-        story=20, 
+        like=random.randrange(60,240,3),
+        comment=random.randrange(60,240,3),
+        follow=random.randrange(60,240,3),
+        unfollow=random.randrange(60,240,3),
+        story=random.randrange(60,240,3),
         )
     session.set_skip_users(
         skip_private=True,
@@ -198,17 +198,17 @@ with smart_run(session):
 
     # like
 
-    session.like_by_tags(hashtag_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
-    session.like_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
+    session.like_by_tags(hashtag_list, amount=3, randomize=True)
+    session.like_by_locations(location_list, amount=3, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
+    session.comment_by_locations(location_list, amount=3, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
-    session.follow_user_followers(follow_users_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
+    session.follow_by_locations(location_list, amount=3, randomize=True)
+    session.follow_user_followers(follow_users_list, amount=3, randomize=True)
 
     # unfollow nonfollowers after one day
 
@@ -217,7 +217,7 @@ with smart_run(session):
         nonFollowers=True,
         style='FIFO',
         unfollow_after=24 * 60 * 60,
-        sleep_delay=(random.randrange(60,240,3))
+        sleep_delay=(random.randrange(240,600,3))
         )
 
     # unfollow users after week to keep following list clean
@@ -227,5 +227,9 @@ with smart_run(session):
         allFollowing=True,
         style='FIFO',
         unfollow_after=168 * 60 * 60,
-        sleep_delay=(random.randrange(60,240,3))
+        sleep_delay=(random.randrange(240,600,3))
         )
+    
+    # logout
+    
+    session.end()
