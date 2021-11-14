@@ -1,6 +1,5 @@
 FROM python:3.7-slim-buster
 WORKDIR /code
-COPY . /code/
 RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian.org/debian buster main contrib non-free#g" /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
@@ -13,10 +12,11 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   g++ \
   python3-dbus \
   # Install newesst Firefox
-  && wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
+RUN wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
   && ln -s /opt/firefox/firefox /usr/bin/ \
-  && pip install --no-cache-dir -U -r requirements.txt \
-  && apt-get purge -y --auto-remove \
+COPY requirements.txt /code
+RUN pip install --no-cache-dir -U -r requirements.txt \
+RUN apt-get purge -y --auto-remove \
   gcc \
   g++ \
   bzip2 \
@@ -31,4 +31,6 @@ RUN apt-get update && apt-get install -y firefox-esr \
   && tar -xf geckodriver-v* \
   && chmod +x geckodriver
 ENV PATH="/code:${PATH}"
+COPY bot.py /code
+COPY secrets.json /code
 CMD [ "python", "bot.py" ]
