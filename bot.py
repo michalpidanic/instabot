@@ -140,7 +140,7 @@ with smart_run(session):
         peak_follows_daily=500,
         peak_unfollows_hourly=48,
         peak_unfollows_daily=480,
-        peak_server_calls_hourly=200,
+        peak_server_calls_hourly=400,
         peak_server_calls_daily=5000,
         )
     session.set_relationship_bounds(
