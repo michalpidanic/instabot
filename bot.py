@@ -129,6 +129,13 @@ session = InstaPy(username=insta_username, password=insta_password,
 
 with smart_run(session):
 
+    # shuffle lists
+
+    random.shuffle(location_list)
+    random.shuffle(hashtag_list)
+    random.shuffle(follow_users_list)
+    random.shuffle(comment_list)
+
     # settings
 
     session.set_quota_supervisor(
@@ -159,11 +166,11 @@ with smart_run(session):
         )
     session.set_action_delays(
         enabled=True,
-        like=5,
-        comment=10,
-        follow=10,
+        like=10,
+        comment=20,
+        follow=20,
         unfollow=30,
-        story=10, 
+        story=20, 
         )
     session.set_skip_users(
         skip_private=True,
@@ -177,7 +184,7 @@ with smart_run(session):
         percentage=70,
         media='Photo'
         )
-    session.interact_user_followers(random.shuffle(follow_users_list), amount=10, randomize=True)
+    session.interact_user_followers(follow_users_list, amount=10, randomize=True)
     session.set_simulation(enabled=True, percentage=70)
     session.set_mandatory_language(enabled=True, character_set=['LATIN'])
     session.set_do_like(enabled=True, percentage=70)
@@ -185,29 +192,23 @@ with smart_run(session):
     session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
     session.set_do_comment(enabled=True, percentage=25)
-    session.set_comments(random.shuffle(comment_list))
+    session.set_comments(comment_list)
     session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
-    # shuffle lists
-
-    random.shuffle(location_list)
-    random.shuffle(hashtag_list)
-    random.shuffle(follow_users_list)
-
     # like
 
-    session.like_by_tags(hashtag_list, amount=10, randomize=True)
-    session.like_by_locations(location_list, amount=10, randomize=True)
+    session.like_by_tags(hashtag_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
+    session.like_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
 
     # comment
 
-    session.comment_by_locations(location_list, amount=10, randomize=True)
+    session.comment_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
 
     # follow
 
-    session.follow_by_locations(location_list, amount=10, randomize=True)
-    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
+    session.follow_by_locations(location_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
+    session.follow_user_followers(follow_users_list, amount=10, randomize=True, sleep_delay=(random.randrange(60,240,3)))
 
     # unfollow nonfollowers after one day
 
@@ -216,7 +217,7 @@ with smart_run(session):
         nonFollowers=True,
         style='FIFO',
         unfollow_after=24 * 60 * 60,
-        sleep_delay=600
+        sleep_delay=(random.randrange(60,240,3))
         )
 
     # unfollow users after week to keep following list clean
@@ -226,5 +227,5 @@ with smart_run(session):
         allFollowing=True,
         style='FIFO',
         unfollow_after=168 * 60 * 60,
-        sleep_delay=600
+        sleep_delay=(random.randrange(60,240,3))
         )
