@@ -138,7 +138,7 @@ with smart_run(session):
         sleepyhead=True,
         stochastic_flow=True,
         notify_me=True,
-        peak_likes_hourly=60,
+        peak_likes_hourly=40,
         peak_likes_daily=600,
         peak_comments_hourly=20,
         peak_comments_daily=200,
@@ -174,13 +174,13 @@ with smart_run(session):
     session.set_user_interact(
         amount=3,
         randomize=True,
-        percentage=80,
+        percentage=70,
         media='Photo'
         )
     session.interact_user_followers(follow_users_list, amount=10, randomize=True)
     session.set_simulation(enabled=True, percentage=70)
     session.set_mandatory_language(enabled=True, character_set=['LATIN'])
-    session.set_do_like(enabled=True, percentage=90)
+    session.set_do_like(enabled=True, percentage=70)
     session.set_dont_like(restricted_hashtag_list)
     session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
@@ -192,16 +192,16 @@ with smart_run(session):
     # like
 
     session.like_by_tags(hashtag_list, amount=10, randomize=True)
-    session.like_by_locations(location_list, amount=40, randomize=True)
+    session.like_by_locations(location_list, amount=10, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_list, amount=20, randomize=True)
+    session.comment_by_locations(location_list, amount=10, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_list, amount=20, randomize=True)
-    session.follow_user_followers(follow_users_list, amount=20, randomize=True)
+    session.follow_by_locations(location_list, amount=10, randomize=True)
+    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
 
     # unfollow nonfollowers after one day
 
