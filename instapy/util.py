@@ -2633,35 +2633,3 @@ def get_shared_data(browser):
             break
 
     return shared_data
-
-@contextmanager
-def smart_run(session, threaded=False):
-    try:
-# Accept cookies quick and dirty fix.
-        session.browser.get('https://instagram.com/accounts/login')
-        session.browser.implicitly_wait(5)
-        for element in session.browser.find_elements_by_tag_name('button'):
-         if element.text.strip().lower() == 'accept': 
-            element.click()
-            break
-
-        session.login()
-        yield
-    except NoSuchElementException:
-        # The problem is with a change in IG page layout
-        log_file = "{}.html".format(time.strftime("%Y%m%d-%H%M%S"))
-        file_path = os.path.join(gettempdir(), log_file)
-
-        with open(file_path, "wb") as fp:
-            fp.write(session.browser.page_source.encode("utf-8"))
-
-        print(
-            "{0}\nIf raising an issue, "
-            "please also upload the file located at:\n{1}\n{0}".format(
-                "*" * 70, file_path
-            )
-        )
-    except KeyboardInterrupt:
-        clean_exit("You have exited successfully.")
-    finally:
-        session.end(threaded_session=threaded)

@@ -108,7 +108,7 @@ follow_users_list = [
 # login session
 
 session = InstaPy(username=insta_username, password=insta_password,
-                  headless_browser=True)
+                  headless_browser=False)
 
 with smart_run(session):
 
