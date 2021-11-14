@@ -27,7 +27,7 @@ comment_list = [
 hashtag_list = [
     'aktuality',
     'aktualne',
-    'branislav'
+    'branislav',
     'brano',
     'bratislava',
     'fakty',
@@ -137,7 +137,7 @@ with smart_run(session):
                      'server_calls_h'],
         sleepyhead=True,
         stochastic_flow=True,
-        notify_me=True,
+        notify_me=False,
         peak_likes_hourly=40,
         peak_likes_daily=600,
         peak_comments_hourly=20,
@@ -163,7 +163,7 @@ with smart_run(session):
         comment=10,
         follow=10,
         unfollow=30,
-        story=10
+        story=10, 
         )
     session.set_skip_users(
         skip_private=True,
@@ -177,7 +177,7 @@ with smart_run(session):
         percentage=70,
         media='Photo'
         )
-    session.interact_user_followers(follow_users_list, amount=10, randomize=True)
+    session.interact_user_followers(random.shuffle(follow_users_list), amount=10, randomize=True)
     session.set_simulation(enabled=True, percentage=70)
     session.set_mandatory_language(enabled=True, character_set=['LATIN'])
     session.set_do_like(enabled=True, percentage=70)
@@ -185,23 +185,23 @@ with smart_run(session):
     session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
     session.set_do_comment(enabled=True, percentage=25)
-    session.set_comments(comment_list)
+    session.set_comments(random.shuffle(comment_list))
     session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
     # like
 
-    session.like_by_tags(hashtag_list, amount=10, randomize=True)
-    session.like_by_locations(location_list, amount=10, randomize=True)
+    session.like_by_tags(random.shuffle(hashtag_list), amount=10, randomize=True)
+    session.like_by_locations(random.shuffle(location_list), amount=10, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_list, amount=10, randomize=True)
+    session.comment_by_locations(random.shuffle(location_list), amount=10, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_list, amount=10, randomize=True)
-    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
+    session.follow_by_locations(random.shuffle(location_list), amount=10, randomize=True)
+    session.follow_user_followers(random.shuffle(follow_users_list), amount=10, randomize=True)
 
     # unfollow nonfollowers after one day
 
