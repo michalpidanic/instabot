@@ -248,7 +248,6 @@ def login_user(
 
     # try to load cookie from username
     try:
-        accept_igcookie_dialogue(browser, logger)
         for cookie in pickle.load(open(cookie_file, "rb")):
             # SameSite = Strict, your cookie will only be sent in a
             # first-party context. In user terms, the cookie will only be sent
@@ -286,9 +285,7 @@ def login_user(
 
     # This fix comes from comment in #6060 If not necessary we can remove it
     accept_igcookie_dialogue(browser, logger)
-    browser.find_element_by_xpath("/html/body/div[3]/div/div/button[1]").click()
-    logger.info("+ Accepted panel cookies")
-    sleep(2) # Wait that the panel will close
+
     # if user is still not logged in, then there is an issue with the cookie
     # so go create a new cookie.
     if cookie_loaded:
