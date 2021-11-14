@@ -160,6 +160,7 @@ with smart_run(session):
                                    min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
     session.set_do_comment(enabled=True, percentage=35)
+    session.set_comments(comment_list)
     session.set_do_follow(enabled=True, percentage=40, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
