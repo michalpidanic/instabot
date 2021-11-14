@@ -150,7 +150,6 @@ with smart_run(session):
         max_followers=500000,
         max_following=2000,
         min_followers=100,
-        min_following=50,
         )
     session.set_action_delays(
         enabled=True,
