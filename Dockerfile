@@ -11,6 +11,7 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   wget \
   gcc \
   g++ \
+  python3-dbus \
   # Install newesst Firefox
   && wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
   && ln -s /opt/firefox/firefox /usr/bin/ \
