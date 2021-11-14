@@ -13,7 +13,7 @@ with open(os.path.join('/code/secrets.json')) as secrets_file:
 
 insta_username = secrets['USERNAME']
 insta_password = secrets['PASSWORD']
-print(insta_username, insta_password)
+
 # constants
 
 comment_list = [
@@ -24,40 +24,51 @@ comment_list = [
     u'Nechceme návrat do obdobia spred roku 1989. 👨🏻‍🎓📚👩🏽‍🎓'
     ]
 hashtag_list = [
-    'refreshersk',
-    'school',
-    'zomri',
-    'zomriofficial',
-    'news',
-    'newz',
-    'day',
+    'aktuality',
+    'aktualne',
+    'branislav'
+    'brano',
+    'bratislava',
+    'fakty',
+    'grohling',
     'info',
-    'study',
-    'students',
-    'fact',
-    'startitup',
-    'motivation',
-    'slovakia',
+    'internat',
+    'intrak',
+    'intraklife',
+    'intraky',
+    'maturanti',
+    'maturita',
+    'motivacia',
+    'nedela',
+    'novinky',
+    'piatok',
     'politika',
+    'pondelok',
+    'praca',
+    'priroda',
+    'protest',
+    'refreshersk',
+    'skola',
     'skolstvo',
-    'university',
+    'sloboda',
+    'slovakia',
+    'slovaknature',
+    'slovensko',
+    'sobota',
+    'spravy',
+    'startitup',
+    'streda',
+    'studenti',
+    'studenstskyzivot',
+    'stvrtok',
+    'teraz',
     'uni',
+    'university',
     'univerzita',
     'univerzity',
-    'slovensko',
-    'bratislava',
-    'praca',
-    'work',
-    'worklife',
-    'pondelok',
     'utorok',
-    'streda',
-    'stvrtok',
-    'piatok',
-    'sobota',
-    'nedela',
-    'slovaknature',
-    'priroda',
+    'zomri',
+    'zomriofficial',
     ]
 location_list = [
     '213682323/bratislava-slovakia',
@@ -116,7 +127,7 @@ with smart_run(session):
 
     session.set_quota_supervisor(
         enabled=True,
-        sleep_after=['likes', 'comments_d', 'follows', 'unfollows',
+        sleep_after=['likes', 'comments', 'follows', 'unfollows',
                      'server_calls_h'],
         sleepyhead=True,
         stochastic_flow=True,
@@ -129,7 +140,7 @@ with smart_run(session):
         peak_follows_daily=500,
         peak_unfollows_hourly=48,
         peak_unfollows_daily=480,
-        peak_server_calls_hourly=500,
+        peak_server_calls_hourly=200,
         peak_server_calls_daily=5000,
         )
     session.set_relationship_bounds(
@@ -141,53 +152,68 @@ with smart_run(session):
         min_followers=100,
         min_following=50,
         )
-    session.set_skip_users(skip_private=True, skip_no_profile_pic=True,
-                           skip_business=False, skip_non_business=False)
-    session.set_user_interact(amount=3, randomize=True, percentage=80,
-                              media='Photo')
-    session.interact_user_followers(follow_users_list, amount=10,
-                                    randomize=True)
-    session.set_simulation(enabled=False)
-    session.set_mandatory_language(enabled=True, character_set=['LATIN'
-                                   ])
-    # session.set_smart_hashtags(smart_hashtag_list, limit=3, sort='top',
-    #                            log_tags=True)
-    # session.set_smart_location_hashtags(location_list, radius=60,
-    #         limit=5)
+    session.set_action_delays(
+        enabled=True,
+        like=5,
+        comment=10,
+        follow=10,
+        unfollow=30,
+        story=10
+        )
+    session.set_skip_users(
+        skip_private=True,
+        skip_no_profile_pic=True,
+        skip_business=False,
+        skip_non_business=False
+        )
+    session.set_user_interact(
+        amount=3,
+        randomize=True,
+        percentage=80,
+        media='Photo'
+        )
+    session.interact_user_followers(follow_users_list, amount=10, randomize=True)
+    session.set_simulation(enabled=True, percentage=70)
+    session.set_mandatory_language(enabled=True, character_set=['LATIN'])
     session.set_do_like(enabled=True, percentage=90)
     session.set_dont_like(restricted_hashtag_list)
-    session.set_delimit_commenting(enabled=True, max_comments=6000,
-                                   min_comments=5)
+    session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
     session.set_do_comment(enabled=True, percentage=35)
     session.set_comments(comment_list)
-    session.set_do_follow(enabled=True, percentage=40, times=1)
+    session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
 
     # like
 
-    session.like_by_tags(hashtag_list, amount=10)
-    session.like_by_locations(location_list, amount=40)
+    session.like_by_tags(hashtag_list, amount=10, randomize=True)
+    session.like_by_locations(location_list, amount=40, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_list, amount=20)
+    session.comment_by_locations(location_list, amount=20, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_list, amount=50)
-    session.follow_user_followers(follow_users_list, amount=10,
-                                  randomize=True)
+    session.follow_by_locations(location_list, amount=10, randomize=True)
+    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
 
     # unfollow nonfollowers after one day
 
-    session.unfollow_users(amount=random.randint(75, 100),
-                           nonFollowers=True, style='FIFO',
-                           unfollow_after=24 * 60 * 60, sleep_delay=600)
+    session.unfollow_users(
+        amount=random.randint(75, 100),
+        nonFollowers=True,
+        style='FIFO',
+        unfollow_after=24 * 60 * 60,
+        sleep_delay=600
+        )
 
     # unfollow users after week to keep following list clean
 
-    session.unfollow_users(amount=random.randint(75, 100),
-                           allFollowing=True, style='FIFO',
-                           unfollow_after=168 * 60 * 60,
-                           sleep_delay=600)
+    session.unfollow_users(
+        amount=random.randint(75, 100),
+        allFollowing=True,
+        style='FIFO',
+        unfollow_after=168 * 60 * 60,
+        sleep_delay=600
+        )
