@@ -21,7 +21,8 @@ comment_list = [
     u'Novela zákona nezvýši kvalitu vysokých škôl! 👩🏻‍🎓👨🏼‍🎓 Podpor akademickú slobodu podpísaním petície 🖋',
     u'⚠️ Sme proti novele vysokoškolského zákona obmedzujúcej akademické slobody! ⚠️',
     u'Zásadne odmietame predložený návrh novely vysokoškolského zákona, pretože obmedzuje akademické slobody a dáva nebezpečné právomoci politickým nominantom, ktorí by tak mohli úplne ovládnuť vysoké školy ⚠️',
-    u'Nechceme návrat do obdobia spred roku 1989. 👨🏻‍🎓📚👩🏽‍🎓'
+    u'Nechceme návrat do obdobia spred roku 1989. 👨🏻‍🎓📚👩🏽‍🎓',
+    u'Chceme REformu, nie DEformu 📝🟨'
     ]
 hashtag_list = [
     'aktuality',
@@ -36,6 +37,7 @@ hashtag_list = [
     'intrak',
     'intraklife',
     'intraky',
+    'matovic',
     'maturanti',
     'maturita',
     'motivacia',
@@ -45,6 +47,8 @@ hashtag_list = [
     'politika',
     'pondelok',
     'praca',
+    'premier',
+    'prezidentka',
     'priroda',
     'protest',
     'refreshersk',
@@ -140,7 +144,7 @@ with smart_run(session):
         peak_follows_daily=500,
         peak_unfollows_hourly=48,
         peak_unfollows_daily=480,
-        peak_server_calls_hourly=400,
+        peak_server_calls_hourly=300,
         peak_server_calls_daily=5000,
         )
     session.set_relationship_bounds(
@@ -178,7 +182,7 @@ with smart_run(session):
     session.set_dont_like(restricted_hashtag_list)
     session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
-    session.set_do_comment(enabled=True, percentage=35)
+    session.set_do_comment(enabled=True, percentage=25)
     session.set_comments(comment_list)
     session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
@@ -194,8 +198,8 @@ with smart_run(session):
 
     # follow
 
-    session.follow_by_locations(location_list, amount=10, randomize=True)
-    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
+    session.follow_by_locations(location_list, amount=20, randomize=True)
+    session.follow_user_followers(follow_users_list, amount=20, randomize=True)
 
     # unfollow nonfollowers after one day
 
