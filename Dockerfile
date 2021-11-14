@@ -14,6 +14,7 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   # Install newesst Firefox
   && wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
   && ln -s /opt/firefox/firefox /usr/bin/ \
+  && echo 'instapy==0.6.14' > requirements.txt \
   && pip install --no-cache-dir -U -r requirements.txt \
   && apt-get purge -y --auto-remove \
   gcc \
@@ -25,9 +26,9 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   && sed -i "s#browser = webdriver.Firefox(#browser = webdriver.Firefox(service_log_path=os.devnull,#g" /usr/local/lib/python3.7/site-packages/instapy/browser.py \
   # Fix webdriverdownloader not handling asc files
   && sed -i "s#bitness in name]#bitness in name and name[-3:] != 'asc' ]#g" /usr/local/lib/python3.7/site-packages/webdriverdownloader/webdriverdownloader.py
-RUN apt-get install -y firefox-geckodriver \
-  && wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-arm7hf.tar.gz \
+RUN apt-get update && apt-get install -y firefox-esr \
+  && wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
   && tar -xf geckodriver-v* \
-  && chmod +x geckodriver \
-  && cp geckodriver /usr/local/bin/ 
+  && chmod +x geckodriver
+ENV PATH="/code:${PATH}"
 CMD [ "python", "bot.py" ]
