@@ -106,18 +106,20 @@ restricted_hashtag_list = [
     'racist',
     ]
 follow_users_list = [
-    'zomriofficial',
+    'aktuality_sk',
+    'comenius.university',
+    'dennikn',
+    'denniksme',
+    'emefka_official',
+    'fiit_nowadays',
+    'pravda.sk',
     'refreshersk',
+    'rtvs_official',
+    'srvs.eu',
     'startitup_sk',
     'stubratislava',
-    'comenius.university',
-    'fiit_nowadays',
-    'srvs.eu',
-    'emefka_official',
-    'rtvs_official',
     'tvjoj',
-    'denniksme',
-    'dennikn'
+    'zomriofficial',
     ]
 
 # login session

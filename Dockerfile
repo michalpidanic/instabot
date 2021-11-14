@@ -10,12 +10,12 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   wget \
   gcc \
   g++ \
-  python3-dbus \
+  python3-dbus
   # Install newesst Firefox
 RUN wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
-  && ln -s /opt/firefox/firefox /usr/bin/ \
+  && ln -s /opt/firefox/firefox /usr/bin/
 COPY requirements.txt /code
-RUN pip install --no-cache-dir -U -r requirements.txt \
+RUN pip install --no-cache-dir -U -r requirements.txt
 RUN apt-get purge -y --auto-remove \
   gcc \
   g++ \
@@ -31,6 +31,6 @@ RUN apt-get update && apt-get install -y firefox-esr \
   && tar -xf geckodriver-v* \
   && chmod +x geckodriver
 ENV PATH="/code:${PATH}"
-COPY bot.py /code
 COPY secrets.json /code
+COPY bot.py /code
 CMD [ "python", "bot.py" ]
