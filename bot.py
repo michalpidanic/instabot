@@ -191,23 +191,23 @@ with smart_run(session):
 
     # shuffle lists
 
-    location_input = random.shuffle(location_list)
-    hashtag_input = random.shuffle(hashtag_list)
-    follow_users_input = random.shuffle(follow_users_list)
+    random.shuffle(location_list)
+    random.shuffle(hashtag_list)
+    random.shuffle(follow_users_list)
 
     # like
 
-    session.like_by_tags(hashtag_input, amount=10, randomize=True)
-    session.like_by_locations(location_input, amount=10, randomize=True)
+    session.like_by_tags(hashtag_list, amount=10, randomize=True)
+    session.like_by_locations(location_list, amount=10, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_input, amount=10, randomize=True)
+    session.comment_by_locations(location_list, amount=10, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_input, amount=10, randomize=True)
-    session.follow_user_followers(follow_users_input, amount=10, randomize=True)
+    session.follow_by_locations(location_list, amount=10, randomize=True)
+    session.follow_user_followers(follow_users_list, amount=10, randomize=True)
 
     # unfollow nonfollowers after one day
 
