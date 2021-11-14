@@ -14,7 +14,6 @@ RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian
   # Install newesst Firefox
   && wget -q -O - "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64" | tar -xj -C /opt \
   && ln -s /opt/firefox/firefox /usr/bin/ \
-  && echo 'instapy==0.6.14' > requirements.txt \
   && pip install --no-cache-dir -U -r requirements.txt \
   && apt-get purge -y --auto-remove \
   gcc \
