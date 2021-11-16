@@ -153,7 +153,7 @@ with smart_run(session):
         peak_follows_daily=500,
         peak_unfollows_hourly=48,
         peak_unfollows_daily=480,
-        peak_server_calls_hourly=300,
+        peak_server_calls_hourly=200,
         peak_server_calls_daily=5000,
         )
     session.set_relationship_bounds(
@@ -181,34 +181,35 @@ with smart_run(session):
     session.set_user_interact(
         amount=3,
         randomize=True,
-        percentage=70,
+        percentage=100,
         media='Photo'
         )
     session.interact_user_followers(follow_users_list, amount=10, randomize=True)
     session.set_simulation(enabled=True, percentage=70)
     session.set_mandatory_language(enabled=True, character_set=['LATIN'])
-    session.set_do_like(enabled=True, percentage=70)
+    session.set_do_like(enabled=True, percentage=100)
     session.set_dont_like(restricted_hashtag_list)
     session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
-    session.set_do_comment(enabled=True, percentage=25)
+    session.set_do_comment(enabled=True, percentage=35)
     session.set_comments(comment_list)
     session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
+    session.interact_user_followers(follow_users_list, amount=100)
 
     # like
 
-    session.like_by_tags(hashtag_list, amount=3, randomize=True)
-    session.like_by_locations(location_list, amount=3, randomize=True)
+    # session.like_by_tags(hashtag_list, amount=3, randomize=True)
+    # session.like_by_locations(location_list, amount=3, randomize=True)
 
     # comment
 
-    session.comment_by_locations(location_list, amount=3, randomize=True)
+    # session.comment_by_locations(location_list, amount=3, randomize=True)
 
     # follow
 
-    session.follow_by_locations(location_list, amount=3, randomize=True)
-    session.follow_user_followers(follow_users_list, amount=3, randomize=True)
+    # session.follow_by_locations(location_list, amount=3, randomize=True)
+    # session.follow_user_followers(follow_users_list, amount=3, randomize=True)
 
     # unfollow nonfollowers after one day
 
@@ -232,4 +233,4 @@ with smart_run(session):
     
     # logout
     
-    session.end()
+    # session.end()
