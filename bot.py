@@ -16,14 +16,6 @@ insta_password = secrets['PASSWORD']
 
 # constants
 
-comment_list = [
-    u'Zodpovedný protest za univerzitné slobody 👨🏽‍🎓📚',
-    u'Novela zákona nezvýši kvalitu vysokých škôl! 👩🏻‍🎓👨🏼‍🎓 Podpor akademickú slobodu podpísaním petície 🖋',
-    u'⚠️ Sme proti novele vysokoškolského zákona obmedzujúcej akademické slobody! ⚠️',
-    u'Zásadne odmietame predložený návrh novely vysokoškolského zákona, pretože obmedzuje akademické slobody a dáva nebezpečné právomoci politickým nominantom, ktorí by tak mohli úplne ovládnuť vysoké školy ⚠️',
-    u'Nechceme návrat do obdobia spred roku 1989. 👨🏻‍🎓📚👩🏽‍🎓',
-    u'Chceme REformu, nie DEformu 📝🟨'
-    ]
 hashtag_list = [
     'aktuality',
     'aktualne',
@@ -107,17 +99,14 @@ restricted_hashtag_list = [
     ]
 follow_users_list = [
     'aktuality_sk',
-    'comenius.university',
     'dennikn',
     'denniksme',
     'emefka_official',
-    'fiit_nowadays',
+    'nextech.magazin',
     'pravda.sk',
     'refreshersk',
     'rtvs_official',
-    'srvs.eu',
     'startitup_sk',
-    'stubratislava',
     'tvjoj',
     'zomriofficial',
     ]
@@ -134,21 +123,18 @@ with smart_run(session):
     random.shuffle(location_list)
     random.shuffle(hashtag_list)
     random.shuffle(follow_users_list)
-    random.shuffle(comment_list)
 
     # settings
 
     session.set_quota_supervisor(
         enabled=True,
-        sleep_after=['likes', 'comments', 'follows', 'unfollows',
+        sleep_after=['likes', 'follows', 'unfollows',
                      'server_calls_h'],
         sleepyhead=True,
         stochastic_flow=True,
         notify_me=False,
         peak_likes_hourly=40,
         peak_likes_daily=600,
-        peak_comments_hourly=20,
-        peak_comments_daily=200,
         peak_follows_hourly=50,
         peak_follows_daily=500,
         peak_unfollows_hourly=48,
@@ -160,21 +146,20 @@ with smart_run(session):
         enabled=True,
         potency_ratio=None,
         delimit_by_numbers=True,
-        max_followers=500000,
+        max_followers=250000,
         max_following=2000,
-        min_followers=100,
+        min_followers=50,
         )
     session.set_action_delays(
         enabled=True,
         like=random.randrange(60,240,3),
-        comment=random.randrange(60,240,3),
         follow=random.randrange(60,240,3),
         unfollow=random.randrange(60,240,3),
         story=random.randrange(60,240,3),
         )
     session.set_skip_users(
         skip_private=True,
-        skip_no_profile_pic=True,
+        skip_no_profile_pic=False,
         skip_business=False,
         skip_non_business=False
         )
@@ -189,10 +174,8 @@ with smart_run(session):
     session.set_mandatory_language(enabled=True, character_set=['LATIN'])
     session.set_do_like(enabled=True, percentage=100)
     session.set_dont_like(restricted_hashtag_list)
-    session.set_delimit_commenting(enabled=True, max_comments=6000, min_comments=5)
     session.set_do_reply_to_comments(enabled=False)
-    session.set_do_comment(enabled=True, percentage=35)
-    session.set_comments(comment_list)
+    session.set_do_comment(enabled=False)
     session.set_do_follow(enabled=True, percentage=25, times=1)
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
     session.interact_user_followers(follow_users_list, amount=100)
@@ -201,10 +184,6 @@ with smart_run(session):
 
     # session.like_by_tags(hashtag_list, amount=3, randomize=True)
     # session.like_by_locations(location_list, amount=3, randomize=True)
-
-    # comment
-
-    # session.comment_by_locations(location_list, amount=3, randomize=True)
 
     # follow
 
